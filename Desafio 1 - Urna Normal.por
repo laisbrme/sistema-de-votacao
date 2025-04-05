@@ -37,10 +37,23 @@ programa {
   inteiro usuarioLogado = -1
   inteiro totalVotos = 0
   logico sair = falso, logado = falso, apuracao = falso
-  cadeia opcao = "0", senhaAcesso = "2411", senhaDigitada
-  cadeia votosPrefeitos[2][2] = {{"90 - Herbert", 0}, {"95 - Ribeiro", 0}}
-  cadeia votosVereadores[4][2] = {{"90000 - Barone", 0}, {"90999 - Bidu", 0}, {"95000 - Monteiro", 0}, {"95999 - João Fera", 0}}
+  cadeia senhaDigitada = "", senhaAcesso = "2411"
+  cadeia candidatosPrefeitos[2] = {
+  	"90 - Herbert", 
+  	"95 - Ribeiro"
+  }
+  cadeia candidatosVereadores[4] = {
+  	"90000 - Barone", 
+  	"90999 - Bidu", 
+  	"95000 - Monteiro", 
+  	"95999 - João Fera"
+  }
+  inteiro votosPrefeitos[2] = {0, 0}
+  inteiro votosVereadores[4] = {0, 0, 0, 0}
+
   inteiro votosNulo = 0, votosBranco = 0
+  real valorFlutuante = 0.4
+
 
   funcao inicio() {
     
@@ -48,11 +61,11 @@ programa {
 
     enquanto(logado == falso e sair == falso){
  
-      obterDadosDoUsuario()
+      senhaDigitada = obterDadosDoUsuario()
  
       logado = autenticar(senhaDigitada)
 
-      logadoNoSistema()
+      logadoNoSistema(logado)
     }
     
   }
@@ -65,10 +78,11 @@ programa {
     escreva("\nOlá, seja bem vindo ao sistema!\n")
   }
 
-  funcao obterDadosDoUsuario(){
+  funcao cadeia obterDadosDoUsuario(){
 
     escreva("\nDigite a senha de acesso: ")
     leia(senhaDigitada)
+    retorne senhaDigitada
   }
 
   funcao logico autenticar(cadeia senha){
@@ -87,17 +101,18 @@ programa {
     }
   }
 
-  funcao logadoNoSistema(){
+  funcao logadoNoSistema(logico logadoOk){
+    inteiro opcao
 
-    enquanto(logado){
+    enquanto(logadoOk){
 
-      menuInicial()
+      opcao = menuInicial()
 
       escolha(opcao){      
 
-        caso "1": iniciarVotacao() pare
+        caso 1: iniciarVotacao() pare
         
-        caso "0": encerrarVotacao() pare
+        caso 2: encerrarVotacao() pare
         
         caso contrario:
           escreva("Opção invalida")
@@ -106,20 +121,24 @@ programa {
     }
   }
 
-  funcao menuInicial(){
+  funcao inteiro menuInicial(){
+    inteiro opcao
 
     escreva("\n")
     escreva(" Escolha uma das opção abaixo:\n")
     escreva(" 1 - Iniciar votação\n")
     escreva(" 0 - Encerrar votação\n")
     escreva(" Opção: ")
+
     leia(opcao)
     escreva("\n")
+
+    retorne opcao
   }
   
   funcao encerrarVotacao(){
 
-    apuracao()
+    apuracaoVotos()
 
     escreva("\nSaindo do sistema...\n")
 
@@ -130,90 +149,61 @@ programa {
 
   funcao iniciarVotacao(){
 
-    menuPrefeitos()
-
-    escolhaPrefeito()
-
-    menuVereadores()
-
-    escolhaVereador()
-  }
-
-  funcao escolhaPrefeito(){
+    inteiro opcao
     
-    totalVotos++
-    escolha(opcao){
+    opcao = menuPrefeitos()
 
-      caso "90": 
-        escreva("Votou em Herbert\n") 
-        votosPrefeitos[0][1] = votosPrefeitos[0][1] + 1
-        pare
+    escolhaPrefeito(opcao)
 
-      caso "95": 
-        escreva("Votou em Ribeiro\n") 
-        votosPrefeitos[1][1] = votosPrefeitos[1][1] + 1
-        pare
-      
-      caso "1": 
-        escreva("Votou em Branco\n") 
-        votosBranco = votosBranco + 1
-        pare
+    opcao = menuVereadores()
 
-      caso contrario:
-        escreva("Votou Nulo\n")
-        votosNulo = votosNulo + 1
-    }
+    escolhaVereador(opcao)
   }
 
-  funcao escolhaVereador(){
-    
-    totalVotos++
-    escolha(opcao){
-
-      caso "90000": 
-        escreva("Votou em Barone\n") 
-        votosVereadores[0][1] = votosVereadores[0][1] + 1
-        pare
-
-      caso "90999": 
-        escreva("Votou em Bidu\n") 
-        votosVereadores[1][1] = votosVereadores[1][1] + 1
-        pare
-
-      caso "95000": 
-        escreva("Votou em Monteiro\n") 
-        votosVereadores[2][1] = votosVereadores[2][1] + 1
-        pare
-
-      caso "95999": 
-        escreva("Votou em João Fera\n") 
-        votosVereadores[3][1] = votosVereadores[3][1] + 1
-        pare
-      
-      caso "1": 
-        escreva("Votou em Branco\n") 
-        votosBranco = votosBranco + 1
-        pare
-
-      caso contrario:
-        escreva("Votou Nulo\n")
-        votosNulo = votosNulo + 1
-    }
-  }
-  
-  funcao menuPrefeitos(){
+  funcao inteiro menuPrefeitos(){
+    inteiro opcao
 
     escreva("\n")
     escreva(" Escolha o seu candidato a Prefeito:\n")
     escreva(" 90 - Herbert\n")
     escreva(" 95 - Ribeiro\n")
     escreva(" 1 - Branco\n")
+
     escreva(" Opção: ")
     leia(opcao)
     escreva("\n")
+
+    retorne opcao
   }
 
-  funcao menuVereadores(){
+  funcao escolhaPrefeito(inteiro opcao){
+    
+    totalVotos++
+    escolha(opcao){
+
+      caso 90: 
+        escreva("Votou em Herbert\n") 
+        votosPrefeitos[0] = votosPrefeitos[0] + 1
+        pare
+
+      caso 95: 
+        escreva("Votou em Ribeiro\n") 
+        votosPrefeitos[1] = votosPrefeitos[1] + 1
+        pare
+      
+      caso 1: 
+        escreva("Votou em Branco\n") 
+        votosBranco = votosBranco + 1
+        pare
+
+      caso contrario:
+        escreva("Votou Nulo\n")
+        votosNulo = votosNulo + 1
+    }
+  }
+
+  funcao inteiro menuVereadores(){
+    inteiro opcao
 
     escreva("\n")
     escreva(" Escolha o seu candidato a Vereador:\n")
@@ -222,12 +212,51 @@ programa {
     escreva(" 95000 - Monteiro\n")
     escreva(" 95999 - João Fera\n")
     escreva(" 1 - Branco\n")
+
     escreva(" Opção: ")
     leia(opcao)
     escreva("\n")
+
+    retorne opcao
   }
 
-  funcao apuracao(){
+  funcao escolhaVereador(inteiro opcao){
+    
+    totalVotos++
+    escolha(opcao){
+
+      caso 90000: 
+        escreva("Votou em Barone\n") 
+        votosVereadores[0] = votosVereadores[0] + 1
+        pare
+
+      caso 90999: 
+        escreva("Votou em Bidu\n") 
+        votosVereadores[1] = votosVereadores[1] + 1
+        pare
+
+      caso 95000: 
+        escreva("Votou em Monteiro\n") 
+        votosVereadores[2] = votosVereadores[2] + 1
+        pare
+
+      caso 95999: 
+        escreva("Votou em João Fera\n") 
+        votosVereadores[3] = votosVereadores[3] + 1
+        pare
+      
+      caso 1: 
+        escreva("Votou em Branco\n") 
+        votosBranco = votosBranco + 1
+        pare
+
+      caso contrario:
+        escreva("Votou Nulo\n")
+        votosNulo = votosNulo + 1
+    }
+  }
+
+  funcao apuracaoVotos(){
 
     se(totalVotos > 0){
 
@@ -253,14 +282,14 @@ programa {
     escreva("Prefeitos:\n")
     para(inteiro i = 0; i < 2; i++){
 
-      escreva(votosPrefeitos[i][0], ": ", votosPrefeitos[i][1], " votos\n")
+      escreva(candidatosPrefeitos[i], ": ", votosPrefeitos[i], " votos\n")
     }
     escreva("\n")
     
     escreva("Vereadores:\n")
     para(inteiro i = 0; i < 4; i++){
       
-      escreva(votosVereadores[i][0], ": ", votosVereadores[i][1], " votos\n")
+      escreva(candidatosVereadores[i], ": ", votosVereadores[i], " votos\n")
     }
     escreva("\n")
     
@@ -273,35 +302,35 @@ programa {
 
   funcao prefeitoEleito(){
 
-    se(votosPrefeitos[0][1] == votosPrefeitos[1][1]){
+    se(votosPrefeitos[0] == votosPrefeitos[1]){
     
-      escreva("Os prefeitos ", votosPrefeitos[0][0], " e ", votosPrefeitos[1][0], " empataram!\n")
+      escreva("Os prefeitos ", candidatosPrefeitos[0], " e ", candidatosPrefeitos[1], " empataram!\n")
       escreva("\n")
     
-    }senao se(votosPrefeitos[0][1] > votosPrefeitos[1][1]){
+    }senao se(votosPrefeitos[0] > votosPrefeitos[1]){
     
-      escreva("O prefeito eleito é ", votosPrefeitos[0][0], "\n")
+      escreva("O prefeito eleito é ", candidatosPrefeitos[0], "\n")
       escreva("\n")
     
     }senao {
       
-      escreva("O prefeito eleito é ", votosPrefeitos[1][0], "\n")
+      escreva("O prefeito eleito é ", candidatosPrefeitos[1], "\n")
       escreva("\n")
     }
   }
 
   funcao vereadorMaisVotado(){
     
-    inteiro maiorVoto = votosVereadores[0][1]
-    cadeia vereador = votosVereadores[0][0]
+    inteiro maiorVoto = votosVereadores[0]
+    cadeia vereador = candidatosVereadores[0]
     logico indicador = falso
 
     para(inteiro i = 1; i < 3; i++){
 
-      se(votosVereadores[i][1] > maiorVoto){ 
+      se(votosVereadores[i] > maiorVoto){ 
 
-        maiorVoto = votosVereadores[i][1]
-        vereador = votosVereadores[i][0]
+        maiorVoto = votosVereadores[i]
+        vereador = candidatosVereadores[i]
       }
     }
 
@@ -323,10 +352,10 @@ programa {
 
     para(inteiro i = 1; i < 3; i++){
 
-      se(votosVereadores[i][1] == maiorVoto){ 
+      se(votosVereadores[i] == maiorVoto){ 
 
         empate = verdadeiro
-        vereadoresEmpatados[i] = votosVereadores[i][0]
+        vereadoresEmpatados[i] = candidatosVereadores[i]
       }
     }
 
@@ -343,3 +372,15 @@ programa {
     retorne empate
   }
 }
+
+/* $$$ Portugol Studio $$$ 
+ * 
+ * Esta seção do arquivo guarda informações do Portugol Studio.
+ * Você pode apagá-la se estiver utilizando outro editor.
+ * 
+ * @POSICAO-CURSOR = 5640; 
+ * @PONTOS-DE-PARADA = ;
+ * @SIMBOLOS-INSPECIONADOS = ;
+ * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
+ * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
+ */
