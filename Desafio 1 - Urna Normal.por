@@ -54,7 +54,7 @@ programa {
   inteiro votosNulo = 0, votosBranco = 0
   real valorFlutuante = 0.4
 
-
+  // Início do programa:
   funcao inicio() {
     
     boasVindas()
@@ -70,6 +70,7 @@ programa {
     
   }
 
+  // Função de boas vindas:
   funcao boasVindas(){
 
     escreva("----------------------------------\n")
@@ -78,6 +79,7 @@ programa {
     escreva("\nOlá, seja bem vindo ao sistema!\n")
   }
 
+  // Função para obter a senha do usuário:
   funcao cadeia obterDadosDoUsuario(){
 
     escreva("\nDigite a senha de acesso: ")
@@ -85,6 +87,7 @@ programa {
     retorne senhaDigitada
   }
 
+  // Função que verifica a autenticação do usuário:
   funcao logico autenticar(cadeia senha){
 
     se(senhaAcesso == senha){
@@ -101,6 +104,7 @@ programa {
     }
   }
 
+  // Função que exibe o menu inicial:
   funcao inteiro menuInicial(){
     inteiro opcao
 
@@ -115,6 +119,7 @@ programa {
     retorne opcao
   }
 
+  // Função que registra a opção do usuário no menu inicial:
   funcao logadoNoSistema(){
     inteiro opcao
 
@@ -135,6 +140,7 @@ programa {
     }
   }
   
+  // Função que encerra a votação:
   funcao encerrarVotacao(){
 
     apuracaoVotos()
@@ -146,6 +152,7 @@ programa {
     
   }
 
+  // Função que inicia a votação:
   funcao iniciarVotacao(){
 
     inteiro opcao
@@ -159,6 +166,7 @@ programa {
     escolhaVereador(opcao)
   }
 
+  // Função que exibe o menu de prefeitos:
   funcao inteiro menuPrefeitos(){
     inteiro opcao
 
@@ -175,6 +183,7 @@ programa {
     retorne opcao
   }
 
+  // Função que registra o voto do prefeito:
   funcao escolhaPrefeito(inteiro opcao){
     
     totalVotos++
@@ -201,6 +210,7 @@ programa {
     }
   }
 
+  // Função que exibe o menu de vereadores:
   funcao inteiro menuVereadores(){
     inteiro opcao
 
@@ -219,6 +229,7 @@ programa {
     retorne opcao
   }
 
+  // Função que registra o voto do vereador:
   funcao escolhaVereador(inteiro opcao){
     
     totalVotos++
@@ -255,6 +266,7 @@ programa {
     }
   }
 
+  // Função que apura os votos:
   funcao apuracaoVotos(){
 
     se(totalVotos > 0){
@@ -276,6 +288,7 @@ programa {
     }
   }
 
+  // Função que exibe os votos de cada candidato:
   funcao votosDeCadaCandidato(){
 
     escreva("Prefeitos:\n")
@@ -299,6 +312,7 @@ programa {
     escreva("\n")
   }
 
+  // Função que exibe o prefeito eleito ou empate:
   funcao prefeitoEleito(){
 
     se(votosPrefeitos[0] == votosPrefeitos[1]){
@@ -318,13 +332,14 @@ programa {
     }
   }
 
+  // Função que exibe o vereador mais votado ou empate:
   funcao vereadorMaisVotado(){
     
     inteiro maiorVoto = votosVereadores[0]
     cadeia vereador = candidatosVereadores[0]
     logico indicador = falso
 
-    para(inteiro i = 1; i < 3; i++){
+    para(inteiro i = 1; i < 4; i++){
 
       se(votosVereadores[i] > maiorVoto){ 
 
@@ -342,19 +357,25 @@ programa {
     }
   }
 
+  // Função que verifica se houve empate entre os vereadores:
   funcao logico verificaEmpate(inteiro maiorVoto, cadeia vereador){
 
     logico empate = falso
     cadeia vereadoresEmpatados[4]
 
-    vereadoresEmpatados[0] = vereador
+    inteiro indiceEmpatados = 0
+    vereadoresEmpatados[indiceEmpatados] = vereador
+    indiceEmpatados++
 
-    para(inteiro i = 1; i < 3; i++){
+    escreva("Maior voto: ", maiorVoto, "\n")
 
-      se(votosVereadores[i] == maiorVoto){ 
+    para(inteiro i = 1; i < 4; i++){
+
+      se(candidatosVereadores[i] != vereador e votosVereadores[i] == maiorVoto){ 
 
         empate = verdadeiro
-        vereadoresEmpatados[i] = candidatosVereadores[i]
+        vereadoresEmpatados[indiceEmpatados] = candidatosVereadores[i]
+        indiceEmpatados++
       }
     }
 
@@ -362,7 +383,7 @@ programa {
 
       escreva("Os vereadores empatados foram:\n")
 
-      para(inteiro i = 0; i < 4; i++){
+      para(inteiro i = 0; i < indiceEmpatados; i++){
 
         escreva("  ", vereadoresEmpatados[i], "\n")
       }
