@@ -37,11 +37,11 @@ Este projeto é um sistema de votação desenvolvido na linguagem **Portugol**, 
 5. Quando a votação for encerrada, o sistema exibe os resultados.
 
 
-<!-- ## 🎞 Apresentação
+## 🎞 Vídeo de Apresentação
 
 O vídeo apresenta o sistema de votação e demonstra o seu funcionamento, destacando suas principais funcionalidades e fluxo de uso.
 
-[![Watch the video](https://img.youtube.com/vi/LFtSqPSo4L0/hqdefault.jpg)](https://youtu.be/LFtSqPSo4L0) -->
+[![Watch the video](https://img.youtube.com/vi/yZJWN-_bdUI/hqdefault.jpg)](https://youtu.be/yZJWN-_bdUI)
 
 ## ⚠️ Versão Adulterada da Urna
 
