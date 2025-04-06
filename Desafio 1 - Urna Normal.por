@@ -65,7 +65,7 @@ programa {
  
       logado = autenticar(senhaDigitada)
 
-      logadoNoSistema(logado)
+      logadoNoSistema()
     }
     
   }
@@ -101,26 +101,6 @@ programa {
     }
   }
 
-  funcao logadoNoSistema(logico logadoOk){
-    inteiro opcao
-
-    enquanto(logadoOk){
-
-      opcao = menuInicial()
-
-      escolha(opcao){      
-
-        caso 1: iniciarVotacao() pare
-        
-        caso 2: encerrarVotacao() pare
-        
-        caso contrario:
-          escreva("Opção invalida")
-          escreva("\n----------------------------------\n")
-      }
-    }
-  }
-
   funcao inteiro menuInicial(){
     inteiro opcao
 
@@ -131,9 +111,28 @@ programa {
     escreva(" Opção: ")
 
     leia(opcao)
-    escreva("\n")
 
     retorne opcao
+  }
+
+  funcao logadoNoSistema(){
+    inteiro opcao
+
+    enquanto(logado){
+
+      opcao = menuInicial()
+
+      escolha(opcao){      
+
+        caso 1: iniciarVotacao() pare
+        
+        caso 0: encerrarVotacao() pare
+        
+        caso contrario:
+          escreva("Opção invalida")
+          escreva("\n----------------------------------\n")
+      }
+    }
   }
   
   funcao encerrarVotacao(){
@@ -260,7 +259,7 @@ programa {
 
     se(totalVotos > 0){
 
-      escreva("\nVotação encerrada!\n\n")
+      escreva("\n\n\nVotação encerrada!\n\n")
 
       escreva("----------------------\n")
       escreva("  Apuração dos votos  \n")
