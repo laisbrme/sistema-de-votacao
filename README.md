@@ -50,6 +50,11 @@ Esta versão do sistema contém uma modificação que altera os resultados da vo
 <a href="Desafio 1 - Urna Adulterada.por">Desafio 1 - Urna Adulterada</a>
 
 
-## ✍️ Autora
+## ✍️ Contato
 
-\<a href="[https://github.com/laisbrme">\<img](https://github.com/laisbrme"><img) src="[https://avatars.githubusercontent.com/u/52614305?s=64&v=4](https://avatars.githubusercontent.com/u/52614305?s=64\&v=4)" height="50" style="border-radius: 50px;" /> \</a>
+**Laís Brum**
+
+<div> 
+  <a href = "mailto: eng.laisbm@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+  <a href="https://www.linkedin.com/in/lais-brum-menezes/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
+</div>
